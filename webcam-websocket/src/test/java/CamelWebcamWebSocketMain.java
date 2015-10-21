@@ -41,11 +41,6 @@ public final class CamelWebcamWebSocketMain {
 
         WebcamWebSocketRoute route = new WebcamWebSocketRoute();
 
-        route.setDelay(100);
-
-        // web socket on port 9090
-        route.setPort(9090);
-
         // add our routes to Camel
         main.addRouteBuilder(route);
 
