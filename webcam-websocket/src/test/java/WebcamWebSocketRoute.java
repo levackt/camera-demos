@@ -25,7 +25,7 @@ public class WebcamWebSocketRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         
-        fromF("webcam:cam").marshal().base64().convertBodyTo(String.class).
+        from("webcam:cam").marshal().base64().convertBodyTo(String.class).
             toF("websocket://camel-webcam?port=9090&sendToAll=true&staticResources=classpath:webapp");
     }
 }
