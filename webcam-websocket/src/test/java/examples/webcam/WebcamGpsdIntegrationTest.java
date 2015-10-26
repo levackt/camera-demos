@@ -18,7 +18,7 @@
  *  
  */
 
-package io.rhiot.examples; import com.github.sarxos.webcam.Webcam;
+package examples.webcam; import com.github.sarxos.webcam.Webcam;
 import io.rhiot.component.gpsd.ClientGpsCoordinates;
 import io.rhiot.component.gpsd.GpsdConstants;
 import io.rhiot.deployer.detector.Device;
@@ -104,7 +104,7 @@ public class WebcamGpsdIntegrationTest extends CamelTestSupport {
                     newExchange.getOut().setBody(pojo);
                     
                     return newExchange;
-                }).to("mock:geo-photo");
+                }).to("mock:geo-photo").to("websocket://camel-webcam?port=9090&sendToAll=true&staticResources=classpath:webapp");
             }
         };
     }

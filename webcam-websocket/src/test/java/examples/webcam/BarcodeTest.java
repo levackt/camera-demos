@@ -18,13 +18,16 @@
  *  
  */
 
-package io.rhiot.examples; import org.apache.camel.builder.RouteBuilder;
+package examples.webcam; import com.google.zxing.NotFoundException;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.dataformat.barcode.BarcodeDataFormat;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 
@@ -45,8 +48,9 @@ public class BarcodeTest extends CamelTestSupport {
         
         template.sendBody("seda:barcode", BarcodeTest.class.getResourceAsStream("qrcode-zxing.png"));
 
-        mock.expectedBodiesReceived("http://www.qrstuff.com/");
-        assertMockEndpointsSatisfied(10, TimeUnit.SECONDS);
+        mock.expectedMinimumMessageCount(555);
+//        mock.expectedBodiesReceived("http://www.qrstuff.com/");
+        assertMockEndpointsSatisfied(50, TimeUnit.SECONDS);
     }
 
     @Override
@@ -54,7 +58,9 @@ public class BarcodeTest extends CamelTestSupport {
         return new RouteBuilder() {
             public void configure() {
                 
-                from("seda:barcode").unmarshal(barcode).to("mock:barcode");
+                from("webcam:barcode?consumer.delay=500&width=640&height=480").
+                        doTry().unmarshal(barcode).doCatch(NotFoundException.class).setBody(constant("Barcode not found")).
+                            log("${body}").to("mock:barcode");
             }
         };
     }

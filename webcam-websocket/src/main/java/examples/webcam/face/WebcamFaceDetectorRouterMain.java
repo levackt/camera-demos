@@ -18,14 +18,14 @@
  *  
  */
 
-package io.rhiot.examples; import org.apache.camel.main.Main;
+package examples.webcam.face; import org.apache.camel.main.Main;
 
 /**
  * A main to start this example.
  */
-public final class CamelWebcamWebSocketMain {
+public final class WebcamFaceDetectorRouterMain {
 
-    private CamelWebcamWebSocketMain() {
+    private WebcamFaceDetectorRouterMain() {
     }
 
     public static void main(String[] args) throws Exception {
@@ -42,7 +42,7 @@ public final class CamelWebcamWebSocketMain {
         // enable hangup support which mean we detect when the JVM terminates, and stop Camel graceful
         main.enableHangupSupport();
 
-        WebcamWebSocketRoute route = new WebcamWebSocketRoute();
+        FaceDetectionRoute route = new FaceDetectionRoute();
 
         // add our routes to Camel
         main.addRouteBuilder(route);

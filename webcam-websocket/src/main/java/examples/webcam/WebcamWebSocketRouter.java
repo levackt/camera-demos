@@ -18,17 +18,24 @@
  *  
  */
 
-package io.rhiot.examples; import org.apache.camel.builder.RouteBuilder;
+package examples.webcam; 
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spring.boot.FatJarRouter;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * A Camel route that streams images from the webcam to web-socket, to be viewed from a web page
  */
-public class WebcamWebSocketRoute extends RouteBuilder {
+//@SpringBootApplication
+//@ComponentScan("examples.webcam")
+    //todo fails due to jetty clash in spring and camel
+public class WebcamWebSocketRouter extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
         
         from("webcam:cam").marshal().base64().convertBodyTo(String.class).
-            toF("websocket://camel-webcam?port=9090&sendToAll=true&staticResources=classpath:webapp");
+            to("websocket://camel-webcam?port=9090&sendToAll=true&staticResources=classpath:webapp");
     }
 }

@@ -9,8 +9,8 @@ Enjoy the spycam, or birdfeed, or barcode scanner...
 
 The gist of each example;
 
-# Webcam to websocket - CamelWebcamWebSocketMain
-Front end is a simplified copy of the webcam-capture example, the library this component is based on.
+# Webcam to websocket - WebSocketMain.java
+Front end is a thinned out version of the webcam-capture example.
 What changes notably is the backend, the following line/s take pics from the webcam every 100ms, marshal to base64 before sending it 
 to all subscribers. 
 camel-websocket is also serving up the static files webapp directory in the classpath, 
@@ -19,7 +19,7 @@ camel-websocket is also serving up the static files webapp directory in the clas
         toF("websocket://camel-webcam?port=%s&sendToAll=true&staticResources=classpath:webapp", getPort())
        
 
-# Barcode scanner 
+# Barcode scanner - BarcodeTest.java
 The barcode scanner example takes an image that could be from the 
     from("webcam:barcode").unmarshal(barcode).to("mock:barcode")
 
