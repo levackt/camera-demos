@@ -60,9 +60,9 @@ and that's already planned for Rhiot, meanwhile Camel makes this easy enough. :)
                 return newExchange;
             }).to("mock:geo-photo");         
 
-# Face detection ?
-
-# Face registration/enrolment ?
+# Face detection - FaceDetectionRoute
+A little bit more involved than previous examples although still trivial enough to fit into one screen, 
+here's [the blog for this example](https://medium.com/@levackt/873a20f878ff)
 
 # Face recognition ?
 
